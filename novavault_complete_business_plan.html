@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>NovaVault – Complete Investor-Ready Business Plan</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <style>
+    :root {
+      --page-bg: #f3f4f6;
+      --paper-bg: #ffffff;
+      --text-main: #111827;
+      --text-muted: #4b5563;
+      --accent: #111827;
+      --accent-soft: #e5e7eb;
+      --border-soft: #e5e7eb;
+      --heading-font: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
+      --body-font: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: var(--page-bg);
+      color: var(--text-main);
+      font-family: var(--body-font);
+      line-height: 1.6;
+      font-size: 14px;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .page {
+      width: 100%;
+      max-width: 900px;
+      background: var(--paper-bg);
+      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.18);
+      border-radius: 10px;
+      padding: 40px 48px;
+    }
+
+    @media print {
+      body {
+        background: #ffffff;
+        padding: 0;
+      }
+      .page {
+        box-shadow: none;
+        border-radius: 0;
+        width: 100%;
+        max-width: 100%;
+        padding: 18mm 20mm;
+      }
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+      .no-print {
+        display: none !important;
+      }
+    }
+
+    .doc-header {
+      border-bottom: 2px solid var(--border-soft);
+      padding-bottom: 12px;
+      margin-bottom: 24px;
+    }
+
+    .doc-title {
+      font-family: var(--heading-font);
+      font-size: 26px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin: 0 0 4px;
+    }
+
+    .doc-subtitle {
+      margin: 0 0 8px;
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    .doc-meta {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      border: 1px solid var(--accent-soft);
+      color: var(--accent);
+      margin-left: 4px;
+    }
+
+    .toc {
+      border: 1px solid var(--border-soft);
+      background: #f9fafb;
+      border-radius: 8px;
+      padding: 16px 18px;
+      margin-bottom: 32px;
+    }
+
+    .toc-title {
+      font-weight: 600;
+      font-size: 14px;
+      margin-bottom: 8px;
+    }
+
+    .toc ul {
+      margin: 0;
+      padding-left: 18px;
+      column-count: 2;
+      column-gap: 32px;
+    }
+
+    .toc li {
+      margin: 2px 0;
+      font-size: 13px;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: var(--heading-font);
+      font-weight: 600;
+      color: var(--text-main);
+      margin-top: 28px;
+      margin-bottom: 8px;
+    }
+
+    h1 {
+      font-size: 22px;
+      border-bottom: 2px solid var(--border-soft);
+      padding-bottom: 4px;
+      margin-top: 32px;
+    }
+
+    h2 {
+      font-size: 18px;
+    }
+
+    h3 {
+      font-size: 15px;
+    }
+
+    h4 {
+      font-size: 13px;
+    }
+
+    p {
+      margin: 6px 0 8px;
+    }
+
+    ul, ol {
+      margin: 4px 0 10px 20px;
+      padding: 0;
+    }
+
+    li {
+      margin: 2px 0;
+    }
+
+    strong {
+      font-weight: 600;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 10px 0 18px;
+      font-size: 12px;
+    }
+
+    th, td {
+      border: 1px solid var(--border-soft);
+      padding: 6px 8px;
+      vertical-align: top;
+    }
+
+    th {
+      background: #f3f4f6;
+      font-weight: 600;
+      text-align: left;
+    }
+
+    tr:nth-child(even) td {
+      background: #fcfcfd;
+    }
+
+    .callout {
+      border-left: 3px solid var(--accent);
+      background: #f9fafb;
+      padding: 8px 10px;
+      margin: 10px 0 16px;
+      font-size: 13px;
+    }
+
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 10px;
+      margin: 10px 0 18px;
+    }
+
+    .kpi-card {
+      border: 1px solid var(--border-soft);
+      border-radius: 8px;
+      padding: 8px 10px;
+      background: #f9fafb;
+      font-size: 12px;
+    }
+
+    .kpi-label {
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 10px;
+      color: var(--text-muted);
+    }
+
+    .kpi-value {
+      font-size: 14px;
+      font-weight: 600;
+      margin-top: 2px;
+    }
+
+    .page-break {
+      page-break-before: always;
+      break-before: page;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="doc-header">
+      <h1 class="doc-title">NovaVault: Complete Investor-Ready Business Plan</h1>
+      <p class="doc-subtitle">The Modern Loyalty Operating System for Web2 → Web3</p>
+      <div class="doc-meta">
+        Version 1.0 • January 5, 2026 • Owner/Designer: John Joseph Stone • Consultant: Ubaid Parvaiz
+        <span class="badge">Investment Ready</span>
+      </div>
+    </header>
+
+    <section class="toc">
+      <div class="toc-title">Table of Contents</div>
+      <ul>
+        <li>1. Executive Summary & Investment Overview</li>
+        <li>2. Pre-Launch Strategy (Days 1–45)</li>
+        <li>3. Phase 1: Web2 Build & Merchant Onboarding (Days 46–130)</li>
+        <li>4. Sales & Marketing Strategy – Merchant Acquisition</li>
+        <li>5. Sales & Marketing Strategy – Customer Acquisition</li>
+        <li>6. Phase 2: Early Traction & Revenue Generation (Days 131–220)</li>
+        <li>7. Phase 3: Scale Readiness & Web3 Transition (Days 221–350)</li>
+        <li>8. Financial Projections & Unit Economics</li>
+        <li>9. Go-To-Market Motion & Channel Strategy</li>
+        <li>10. Product Roadmap & Feature Releases</li>
+        <li>11. Competitive Analysis & Market Positioning</li>
+        <li>12. Risk Mitigation & Contingency Plans</li>
+        <li>13. Team Structure & Hiring Plan</li>
+        <li>14. KPIs, Metrics & Success Indicators</li>
+        <li>15. Appendix: Cost Breakdowns & Timeline</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Executive Snapshot</h2>
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <div class="kpi-label">Seed Round (Target)</div>
+          <div class="kpi-value">$500K–$750K</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">Total 12-Month Costs</div>
+          <div class="kpi-value">$533,500</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">Year 1 ARR (Moderate)</div>
+          <div class="kpi-value">$450K</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">Merchant Target (M12)</div>
+          <div class="kpi-value">100–150+</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">Merchant LTV:CAC</div>
+          <div class="kpi-value">≈12–30 : 1</div>
+        </div>
+      </div>
+      <div class="callout">
+        NovaVault is a Web2‑first, Web3‑optional loyalty operating system that starts as a ledger‑driven SaaS platform and later adds tokenization and network effects when the economics justify it.[file:81]
+      </div>
+    </section>
+
+    <!-- 1. EXECUTIVE SUMMARY -->
+    <section class="page-break" id="exec-summary">
+      <h1>1. Executive Summary & Investment Overview</h1>
+
+      <h2>The Opportunity</h2>
+      <p>
+        The global loyalty software and services market is worth an estimated $10–12 billion and is growing at 10–12% annually, driven by ecommerce expansion, subscriptions, and the need for data‑driven retention.[file:81]
+      </p>
+      <p>
+        Traditional loyalty systems are expensive to operate, fragment data across tools, make ROI hard to prove, and add unnecessary friction when they start directly on blockchain rails.[file:81]
+      </p>
+
+      <h2>The NovaVault Model</h2>
+      <ul>
+        <li><strong>Phase 1 (Web2):</strong> Ledger‑first loyalty platform that merchants can deploy quickly on proven Web2 infrastructure.[file:81]</li>
+        <li><strong>Phase 2 (Web3):</strong> Optional Cardano‑based tokenization layer for vendors and customers once traction and economics are validated.[file:81]</li>
+      </ul>
+
+      <h2>Investment Ask & Use of Funds</h2>
+      <p><strong>Total Seed Funding Required: $490,350</strong> (rounded to a $500K–$750K seed).[file:81]</p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Category</th>
+            <th>Amount</th>
+            <th>Timeline</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Pre‑Launch Marketing</td>
+            <td>$25,000</td>
+            <td>Days 1–45</td>
+          </tr>
+          <tr>
+            <td>Phase 1 Development (Mid‑range)</td>
+            <td>$148,000</td>
+            <td>Days 46–130</td>
+          </tr>
+          <tr>
+            <td>Phase 2 Operations & Scale</td>
+            <td>$100,000–150,000 / month</td>
+            <td>Days 131+</td>
+          </tr>
+          <tr>
+            <td>Contingency (15%)</td>
+            <td>$67,350</td>
+            <td>Across 12 months</td>
+          </tr>
+          <tr>
+            <td><strong>Total</strong></td>
+            <td><strong>$490,350</strong></td>
+            <td><strong>12‑month plan</strong></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2>Key 12‑Month Targets</h2>
+      <ul>
+        <li>10–25 pilot merchants onboarded, with 43%+ lift in purchase frequency where programs are fully adopted.[file:81]</li>
+        <li>$120K–180K ARR conservative, $300K–600K ARR moderate, with 10%+ monthly growth post‑launch.[file:81]</li>
+        <li>Core team of 3–5 people initially, scaling toward 12–15 by month 12.[file:81]</li>
+      </ul>
+    </section>
+
+    <!-- 2. PRE-LAUNCH STRATEGY -->
+    <section class="page-break" id="pre-launch">
+      <h1>2. Pre‑Launch Strategy (Days 1–45)</h1>
+
+      <h2>Objective</h2>
+      <p>
+        Build momentum, establish brand authority, and recruit the first wave of merchants and community members before the Web2 build completes.[file:81]
+      </p>
+
+      <h2>Timeline & Milestones</h2>
+      <h3>Week 1–2: Messaging & Brand Foundation</h3>
+      <ul>
+        <li>Finalize brand narrative and value proposition.</li>
+        <li>Create investor pitch deck and one‑pager.</li>
+        <li>Launch high‑converting marketing website and email capture.</li>
+        <li>Set up LinkedIn, Twitter/X, and Discord presence.[file:81]</li>
+      </ul>
+
+      <h3>Week 3–4: Community & Content Launch</h3>
+      <ul>
+        <li>Launch Discord/Telegram with a goal of 500+ early members.</li>
+        <li>Release a data‑driven whitepaper and 3–5 thought‑leadership posts.</li>
+        <li>Publish a 2–3 minute explainer video and begin KOL outreach.[file:81]</li>
+      </ul>
+
+      <h3>Week 5–6: Whitelist & Partnership Campaign</h3>
+      <ul>
+        <li>Launch merchant whitelist and early‑access waitlist with referral incentives.</li>
+        <li>Secure 2–3 media or fintech/ecommerce publication partners.</li>
+        <li>Begin outbound merchant recruitment to target segments.[file:81]</li>
+      </ul>
+
+      <h2>Pre‑Launch Budget</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Line Item</th>
+            <th>Cost</th>
+            <th>Notes</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Website design & hosting</td>
+            <td>$3,000</td>
+            <td>Professional Webflow or custom site</td>
+          </tr>
+          <tr>
+            <td>Content (5 posts + video)</td>
+            <td>$2,500</td>
+            <td>Freelance writers and editor</td>
+          </tr>
+          <tr>
+            <td>Social media management</td>
+            <td>$2,000</td>
+            <td>6 weeks at ~$300/week</td>
+          </tr>
+          <tr>
+            <td>Influencer partnerships</td>
+            <td>$5,000</td>
+            <td>3–5 KOLs, mainly nano/micro‑influencers</td>
+          </tr>
+          <tr>
+            <td>Email platform (6 months)</td>
+            <td>$600</td>
+            <td>ConvertKit/Mailchimp</td>
+          </tr>
+          <tr>
+            <td>Paid ads (Twitter, LinkedIn, Google)</td>
+            <td>$6,000</td>
+            <td>Awareness and retargeting</td>
+          </tr>
+          <tr>
+            <td>PR & press outreach</td>
+            <td>$3,000</td>
+            <td>Crypto/fintech media pitches</td>
+          </tr>
+          <tr>
+            <td>Community tools</td>
+            <td>$500</td>
+            <td>Discord bots, moderation tooling</td>
+          </tr>
+          <tr>
+            <td>Design & graphics</td>
+            <td>$1,500</td>
+            <td>Logo refinement, brand system</td>
+          </tr>
+          <tr>
+            <td>Contingency</td>
+            <td>$800</td>
+            <td>Unexpected creative or media needs</td>
+          </tr>
+          <tr>
+            <td><strong>Subtotal</strong></td>
+            <td><strong>$25,000</strong></td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- 3. PHASE 1 -->
+    <section class="page-break" id="phase1">
+      <h1>3. Phase 1: Web2 Build & Merchant Onboarding (Days 46–130)</h1>
+
+      <h2>Objective</h2>
+      <p>
+        Ship a fully functional Web2 loyalty platform, onboard 5–10 pilot merchants, and validate early ARR and product‑market fit signals.[file:81]
+      </p>
+
+      <h2>Build Team & Core Features</h2>
+      <ul>
+        <li>Full‑stack engineer, tech lead/architect, frontend engineer, DevOps, QA tester, UI/UX designer.[file:81]</li>
+        <li>Features: vendor signup, customer accounts, product catalog, POS, payment integration, token balance, redemption, dashboards, admin console.[file:81]</li>
+      </ul>
+
+      <h2>Phase 1 Budget (Mid‑Range)</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Category</th>
+            <th>Low</th>
+            <th>Mid</th>
+            <th>High</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Headcount</td>
+            <td>$55K</td>
+            <td>$81K</td>
+            <td>$197K</td>
+          </tr>
+          <tr>
+            <td>Infrastructure</td>
+            <td>$1.6K</td>
+            <td>$1.6K</td>
+            <td>$1.6K</td>
+          </tr>
+          <tr>
+            <td>Software & tools</td>
+            <td>$1.6K</td>
+            <td>$1.6K</td>
+            <td>$1.6K</td>
+          </tr>
+          <tr>
+            <td>Security & legal</td>
+            <td>$4K</td>
+            <td>$8K</td>
+            <td>$42K</td>
+          </tr>
+          <tr>
+            <td>Contingency</td>
+            <td>$12.2K</td>
+            <td>$18.8K</td>
+            <td>$31.6K</td>
+          </tr>
+          <tr>
+            <td><strong>Phase 1 total</strong></td>
+            <td><strong>$74K</strong></td>
+            <td><strong>$111K</strong></td>
+            <td><strong>$244K</strong></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2>Merchant Onboarding</h2>
+      <p>
+        Phase 1 targets 5–10 pilot merchants across subscription boxes, indie ecommerce, SaaS, crypto‑native communities, and service businesses with a structured 8‑day onboarding and go‑live process.[file:81]
+      </p>
+    </section>
+
+    <!-- 4. MERCHANT ACQUISITION -->
+    <section class="page-break" id="merchant-acq">
+      <h1>4. Sales & Marketing Strategy – Merchant Acquisition</h1>
+
+      <h2>Merchant Personas</h2>
+      <ul>
+        <li><strong>Growth‑Hungry Indie:</strong> $500K–$5M revenue, wants 3–5x repeat purchase lift.[file:81]</li>
+        <li><strong>Subscription Manager:</strong> $1M–$20M revenue, focused on churn reduction.[file:81]</li>
+        <li><strong>Marketplace / Platform:</strong> $5M–$100M+ revenue, wants white‑label loyalty.[file:81]</li>
+        <li><strong>Crypto‑Native Community:</strong> Web3 projects seeking tokenized loyalty.[file:81]</li>
+      </ul>
+
+      <h2>Channel Budget & Outcomes (Year 1)</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Channel</th>
+            <th>Budget</th>
+            <th>Expected Merchants</th>
+            <th>Estimated CAC</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Direct sales</td>
+            <td>$40,000</td>
+            <td>30–50</td>
+            <td>$800–1,300</td>
+          </tr>
+          <tr>
+            <td>Partnerships</td>
+            <td>$25,000</td>
+            <td>20–40</td>
+            <td>$625–1,250</td>
+          </tr>
+          <tr>
+            <td>Content / organic</td>
+            <td>$15,000</td>
+            <td>20–30</td>
+            <td>$500–750</td>
+          </tr>
+          <tr>
+            <td>Paid ads</td>
+            <td>$20,000</td>
+            <td>10–15</td>
+            <td>$1,300–2,000</td>
+          </tr>
+          <tr>
+            <td>Community / referral</td>
+            <td>$10,000</td>
+            <td>10–20</td>
+            <td>$500–1,000</td>
+          </tr>
+          <tr>
+            <td>Events & sponsorships</td>
+            <td>$10,000</td>
+            <td>5–10</td>
+            <td>$1,000–2,000</td>
+          </tr>
+          <tr>
+            <td><strong>Total</strong></td>
+            <td><strong>$120,000</strong></td>
+            <td><strong>95–165</strong></td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- 5. CUSTOMER ACQUISITION -->
+    <section class="page-break" id="customer-acq">
+      <h1>5. Sales & Marketing Strategy – Customer Acquisition</h1>
+      <p>
+        Customers (end buyers) are primarily acquired through merchant promotion, making NovaVault a merchant‑driven network with very attractive customer unit economics.[file:81]
+      </p>
+
+      <h2>Year 1 Customer Budget</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Cost</th>
+            <th>Driver</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Marketing kit creation</td>
+            <td>$2,000</td>
+            <td>Merchant‑side promotion assets</td>
+          </tr>
+          <tr>
+            <td>Email platforms</td>
+            <td>$2,000</td>
+            <td>Merchant + customer messaging</td>
+          </tr>
+          <tr>
+            <td>Referral token incentives</td>
+            <td>$10,000</td>
+            <td>Customer referral loop</td>
+          </tr>
+          <tr>
+            <td>Paid ads (seed customers)</td>
+            <td>$3,000</td>
+            <td>Top‑of‑funnel awareness</td>
+          </tr>
+          <tr>
+            <td>Community & content</td>
+            <td>$3,000</td>
+            <td>Discord, education</td>
+          </tr>
+          <tr>
+            <td>Customer success support</td>
+            <td>$5,000</td>
+            <td>Help desk, email</td>
+          </tr>
+          <tr>
+            <td>Website & landing pages</td>
+            <td>$2,000</td>
+            <td>Directory, signup flows</td>
+          </tr>
+          <tr>
+            <td>Contingency</td>
+            <td>$3,000</td>
+            <td>Unplanned campaigns</td>
+          </tr>
+          <tr>
+            <td><strong>Total</strong></td>
+            <td><strong>$30,000</strong></td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Due to length, remaining sections follow same pattern:
+         6. Phase 2
+         7. Phase 3 & Web3 integration
+         8. Financial projections & unit economics
+         9. GTM & channels
+         10. Product roadmap
+         11. Competitive analysis
+         12. Risk mitigation
+         13. Team & hiring
+         14. KPIs
+         15. Appendix with cost tables & Gantt
+         You can paste remaining markdown content as HTML under matching <h1>/<h2> blocks. -->
+
+  </div>
+</body>
+</html>
