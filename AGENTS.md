@@ -4,13 +4,13 @@ This file provides guidance to WARP (warp.dev) when working with code in this re
 
 ## Project Overview
 
-NovaVault.io is a ledger-first loyalty operating system (CBLS — Customer-Based Loyalty System). The platform is designed as Web2 now, Web3-ready later — starting with traditional database-backed loyalty and an optional future Cardano token layer. The current codebase is the **marketing/pitch site**, not the application itself.
+NovaVault.io is a ledger-first loyalty operating system (CBLS — Customer-Based Loyalty System). The platform is designed as Web2 now, Web3-ready later — starting with traditional database-backed loyalty and an optional future Cardano token layer. The repo contains both the **static marketing/pitch site** (root) and the **full Laravel application** (`novavault-app/`).
 
 ## Architecture
 
-### Frontend (Static HTML + Vanilla JS + CSS)
+### Marketing Site (Static HTML + Vanilla JS + CSS)
 
-Single-page marketing site with flat `.html` files at the project root. One shared `styles.css` and one `script.js`. No build step, no bundler, no framework.
+Single-page marketing site with flat `.html` files at the project root. CSS at `assets/css/styles.css`, JS at `assets/js/script.js`. No build step, no bundler, no framework.
 
 **Key pages:**
 - `index.html` — Full marketing landing page (hero, features, how-it-works, who-it's-for, roadmap, pricing, security, contact form)
@@ -20,7 +20,7 @@ Single-page marketing site with flat `.html` files at the project root. One shar
 - `novavault_pitch_deck_01-2026.pdf` — PDF pitch deck
 - `resume-ubaid-rather.html` — Team member CV (Ubaid Parvaiz Rather)
 
-**Key JS (`script.js`):**
+**Key JS (`assets/js/script.js`):**
 - Sticky header with scroll-based shrink
 - Mobile hamburger menu toggle
 - Tab component (Customers / Vendors / Investors panels)
@@ -28,7 +28,7 @@ Single-page marketing site with flat `.html` files at the project root. One shar
 - Toast notification system (demo form button)
 - Auto-set copyright year
 
-**CSS (`styles.css`):**
+**CSS (`assets/css/styles.css`):**
 - Dark theme (navy base `#070B14`, gold accents, glassmorphism cards)
 - CSS custom properties for colours
 - Responsive grid layouts (features, pricing, security, steps)
@@ -36,18 +36,31 @@ Single-page marketing site with flat `.html` files at the project root. One shar
 
 ### Assets
 - `assets/images/` — Hero image (`01_hero-1200x600.jpg`), logo (`novavault_logo.png`), favicon, founder photo
+- `assets/css/` — `styles.css` (marketing site)
+- `assets/js/` — `script.js` (marketing site)
 
-### Backend
-No backend currently. The contact form is a static demo (front-end only, not wired to any endpoint). The `.htaccess` handles HTTPS canonicalization, `.html` extension stripping, security headers, caching, and gzip.
+### Docs
+- `docs/` — Build plans (Phase 1/2/3), full build plan, changelog
+
+### Laravel Application (`novavault-app/`)
+- **Framework:** Laravel 13 (PHP 8.2+)
+- **Frontend:** Blade + Tailwind CSS + Alpine.js (Vite build)
+- **Database:** MySQL 8 (14 migrations, 17+ tables, ledger-first architecture)
+- **Auth:** Laravel Breeze with 3 roles (admin/vendor/patron)
+- **Key services:** `TokenEngine` (ledger), `RedemptionService` (anti-abuse)
+- **88 routes:** Admin console, vendor dashboard/POS/orders/products, patron dashboard/wallets/redemptions, public storefronts, checkout
+- **Dark/light theme switcher** across all pages
+- **Tests:** 43 tests, 111 assertions (PHPUnit)
+- See `novavault-app/DEPLOY.md` for production deployment guide
 
 ## Tech Stack
-- HTML5, vanilla CSS3, vanilla ES6+ JS
+- **Marketing site:** HTML5, vanilla CSS3, vanilla ES6+ JS
+- **Application:** PHP 8.2+ / Laravel 13 / MySQL 8 / Tailwind CSS / Alpine.js
 - Apache shared hosting (BlueHost/cPanel)
-- No dependencies, no npm, no build tools
 
 ## Business Context
 - **Product concept:** SaaS loyalty platform with secure rewards ledger, vendor stores, POS, checkout, configurable reward rules, fraud controls, dashboards
-- **Tech stack (planned app):** Haskell backend (Yesod/Scotty/Snap), PostgreSQL, REST/JSON APIs
+- **Tech stack (app):** PHP 8.2+ / Laravel 13 / MySQL 8 / Blade + Tailwind + Alpine.js
 - **Pricing model:** Tiered merchant subscriptions ($99–$15K/yr) + optional Phase 2 tokenization services
 - **Seed funding ask:** $490,350
 - **Phase 1 target:** 5–10 pilot merchants, $120K–$180K ARR

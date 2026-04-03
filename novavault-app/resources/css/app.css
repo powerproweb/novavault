@@ -1,0 +1,78 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ===== Theme custom properties ===== */
+:root {
+  --nv-bg: #04060d;
+  --nv-bg-alt: #070b14;
+  --nv-surface: rgba(14, 22, 38, 0.72);
+  --nv-surface-dark: rgba(10, 18, 32, 0.86);
+  --nv-text: rgba(255,255,255,0.92);
+  --nv-muted: rgba(255,255,255,0.72);
+  --nv-stroke: rgba(255,255,255,0.10);
+  --nv-card-bg: rgba(14, 22, 38, 0.72);
+  --nv-input-bg: #0e1626;
+  --nv-input-border: rgba(255,255,255,0.10);
+  --nv-table-head: #0e1626;
+}
+
+:root.light {
+  --nv-bg: #f5f7fa;
+  --nv-bg-alt: #ffffff;
+  --nv-surface: rgba(255,255,255,0.92);
+  --nv-surface-dark: rgba(240,242,246,0.95);
+  --nv-text: #1a1a2e;
+  --nv-muted: #4a5568;
+  --nv-stroke: rgba(0,0,0,0.10);
+  --nv-card-bg: #ffffff;
+  --nv-input-bg: #ffffff;
+  --nv-input-border: #d1d5db;
+  --nv-table-head: #f1f5f9;
+}
+
+/* Apply theme vars to app pages */
+.themed-bg    { background-color: var(--nv-bg) !important; }
+.themed-alt   { background-color: var(--nv-bg-alt) !important; }
+.themed-text  { color: var(--nv-text) !important; }
+.themed-muted { color: var(--nv-muted) !important; }
+
+/* Light mode overrides for Tailwind utility classes */
+.light .bg-navy-950  { background-color: var(--nv-bg); }
+.light .bg-navy-900  { background-color: var(--nv-bg-alt); }
+.light .bg-navy-800  { background-color: var(--nv-table-head); }
+.light .bg-surface   { background-color: var(--nv-card-bg); }
+.light .border-stroke { border-color: var(--nv-stroke); }
+.light .text-white   { color: var(--nv-text); }
+.light .text-gray-300 { color: #4a5568; }
+.light .text-gray-400 { color: #6b7280; }
+.light .text-gray-500 { color: #9ca3af; }
+.light .bg-navy-900\/80 { background-color: rgba(255,255,255,0.85); backdrop-filter: blur(14px); }
+
+/* Light mode form inputs */
+.light input, .light select, .light textarea {
+  background-color: var(--nv-input-bg) !important;
+  border-color: var(--nv-input-border) !important;
+  color: var(--nv-text) !important;
+}
+
+/* Light mode dropdown */
+.light [x-ref="panel"] { background-color: #fff; border-color: #e5e7eb; }
+.light [x-ref="panel"] a { color: #374151; }
+.light [x-ref="panel"] a:hover { background-color: #f3f4f6; }
+
+/* Gold stays gold in both themes */
+.light .text-gold { color: #b8860b; }
+.light .bg-gold { background-color: #f5c542; }
+
+/* Blue adjusts for contrast */
+.light .text-nv-blue { color: #0284c7; }
+.light .bg-nv-blue { background-color: #0284c7; }
+
+/* Hide Alpine x-cloak elements until init */
+[x-cloak] { display: none !important; }
+
+/* Smooth transition */
+*, *::before, *::after {
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}

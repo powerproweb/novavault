@@ -40,8 +40,81 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-<link rel="stylesheet" href="assets/css/styles.css" />
+<link rel="stylesheet" href="{{ asset('assets/css/styles.css') }}" />
+<meta name="csrf-token" content="{{ csrf_token() }}">
 
+<!-- Light theme overrides for the marketing site -->
+<style>
+  /* Apply stored theme instantly to prevent flash */
+  html.light body {
+    color: #1a1a2e;
+    background: linear-gradient(180deg, #f5f7fa, #ffffff 60%, #f0f2f6);
+  }
+  html.light .site-header {
+    background: rgba(255,255,255,0.85);
+    border-bottom-color: rgba(0,0,0,0.08);
+  }
+  html.light .brand-name,
+  html.light .nav-link,
+  html.light .section-title { color: #1a1a2e; }
+  html.light .brand-tag,
+  html.light .section-lede,
+  html.light .nav-link { color: #4a5568; }
+  html.light .nav-link:hover { color: #1a1a2e; background: rgba(0,0,0,0.05); }
+  html.light .card,
+  html.light .step.card,
+  html.light .feature-card {
+    background: rgba(255,255,255,0.92);
+    border-color: rgba(0,0,0,0.08);
+    color: #1a1a2e;
+  }
+  html.light .card p,
+  html.light .checklist li,
+  html.light .callout-text { color: #4a5568; }
+  html.light .section-alt {
+    background: linear-gradient(180deg, rgba(0,0,0,0.02), rgba(0,0,0,0.01));
+    border-color: rgba(0,0,0,0.06);
+  }
+  html.light .gold { color: #b8860b; }
+  html.light .strip-item { border-color: rgba(0,0,0,0.08); }
+  html.light .strip-desc { color: #6b7280; }
+  html.light .site-footer { background: #f0f2f6; color: #4a5568; }
+  html.light .footer-links a { color: #4a5568; }
+  html.light .btn-ghost { border-color: rgba(0,0,0,0.15); color: #1a1a2e; }
+  html.light .hero-overlay { color: #1a1a2e; }
+  html.light .hero-title { color: #1a1a2e; }
+  html.light .hero-subtitle { color: #4a5568; }
+  html.light .metric-top { color: #1a1a2e; }
+  html.light .metric-bottom { color: #6b7280; }
+  html.light .pill { background: rgba(0,0,0,0.06); color: #1a1a2e; }
+  html.light .form input,
+  html.light .form select,
+  html.light .form textarea {
+    background: #fff; border-color: #d1d5db; color: #1a1a2e;
+  }
+  html.light .form label span { color: #374151; }
+  html.light .tech-pill { background: rgba(0,0,0,0.05); color: #374151; }
+  html.light .header-glow { opacity: 0.3; }
+  /* Theme toggle button */
+  .nv-theme-btn {
+    background: none; border: none; cursor: pointer; padding: 8px;
+    font-size: 20px; line-height: 1; border-radius: 8px;
+    transition: background 0.2s;
+  }
+  .nv-theme-btn:hover { background: rgba(128,128,128,0.15); }
+
+  *, *::before, *::after {
+    transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+  }
+</style>
+
+<!-- Prevent flash: apply theme before paint -->
+<script>
+  (function(){
+    var t = localStorage.getItem('nv-theme');
+    if (t === 'light') document.documentElement.classList.add('light');
+  })();
+</script>
 </head>
 
 <body>
@@ -75,8 +148,16 @@
         <a class="nav-link" href="founder_statement.html">Founder Statement</a>
       </nav>
 
-      <div class="header-cta">
-        <a class="btn btn-primary" href="#contact">Request Demo</a>
+      <div class="header-cta" style="display:flex;gap:10px;align-items:center;">
+        <button class="nv-theme-btn" id="themeToggle" type="button" title="Toggle theme">
+          <span id="themeIcon">☀️</span>
+        </button>
+        @auth
+          <a class="btn btn-primary" href="{{ route('dashboard') }}">Dashboard</a>
+        @else
+          <a class="nav-link" href="{{ route('login') }}" style="color:var(--muted);">Log in</a>
+          <a class="btn btn-primary" href="{{ route('register') }}">Sign Up</a>
+        @endauth
       </div>
     </div>
 
@@ -830,6 +911,21 @@
 
   <div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true"></div>
 
-  <script src="assets/js/script.js"></script>
+  <script src="{{ asset('assets/js/script.js') }}"></script>
+  <script>
+    // Theme toggle for the marketing page (no Alpine here)
+    (function() {
+      var btn = document.getElementById('themeToggle');
+      var icon = document.getElementById('themeIcon');
+      function isLight() { return document.documentElement.classList.contains('light'); }
+      function updateIcon() { icon.textContent = isLight() ? '\uD83C\uDF19' : '\u2600\uFE0F'; }
+      updateIcon();
+      btn.addEventListener('click', function() {
+        document.documentElement.classList.toggle('light');
+        localStorage.setItem('nv-theme', isLight() ? 'light' : 'dark');
+        updateIcon();
+      });
+    })();
+  </script>
 </body>
 </html>
