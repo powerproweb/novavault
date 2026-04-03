@@ -1,18 +1,25 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Patron\DashboardController as PatronDashboard;
 use App\Http\Controllers\Patron\RedemptionController;
+use App\Http\Controllers\Patron\ReferralController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Store\BlogController;
 use App\Http\Controllers\Store\CheckoutController;
 use App\Http\Controllers\Store\StorefrontController;
+use App\Http\Controllers\SupportController;
+use App\Http\Controllers\Vendor\AnalyticsController;
 use App\Http\Controllers\Vendor\CategoryController;
 use App\Http\Controllers\Vendor\DashboardController as VendorDashboard;
+use App\Http\Controllers\Vendor\ExportController;
 use App\Http\Controllers\Vendor\OnboardingController;
 use App\Http\Controllers\Vendor\OrderController;
 use App\Http\Controllers\Vendor\POSController;
 use App\Http\Controllers\Vendor\ProductController;
 use App\Http\Controllers\Vendor\RewardRuleController;
+use App\Http\Controllers\Vendor\TierController;
 use Illuminate\Support\Facades\Route;
 
 // ----- Public -----
@@ -73,6 +80,16 @@ Route::middleware(['auth', 'role:vendor'])->prefix('vendor')->group(function () 
         Route::post('/categories', [CategoryController::class, 'store'])->name('vendor.categories.store');
         Route::put('/categories/{category}', [CategoryController::class, 'update'])->name('vendor.categories.update');
         Route::delete('/categories/{category}', [CategoryController::class, 'destroy'])->name('vendor.categories.destroy');
+
+        // Phase 2: Analytics, Tiers, Export
+        Route::get('/analytics', [AnalyticsController::class, 'index'])->name('vendor.analytics');
+
+        Route::get('/tiers', [TierController::class, 'index'])->name('vendor.tiers.index');
+        Route::post('/tiers', [TierController::class, 'store'])->name('vendor.tiers.store');
+        Route::delete('/tiers/{tier}', [TierController::class, 'destroy'])->name('vendor.tiers.destroy');
+
+        Route::get('/export', [ExportController::class, 'index'])->name('vendor.export');
+        Route::post('/export', [ExportController::class, 'download'])->name('vendor.export.download');
     });
 });
 
@@ -87,6 +104,9 @@ Route::middleware(['auth', 'role:patron'])->prefix('patron')->group(function () 
     Route::get('/redemptions', [RedemptionController::class, 'index'])->name('patron.redemptions');
     Route::get('/redeem/{vendor}', [RedemptionController::class, 'offers'])->name('patron.redeem.offers');
     Route::post('/redeem', [RedemptionController::class, 'redeem'])->name('patron.redeem');
+
+    // Phase 2: Referrals & Badges
+    Route::get('/referrals', [ReferralController::class, 'index'])->name('patron.referrals');
 });
 
 // ----- Storefront (public) -----
@@ -129,6 +149,27 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
     Route::post('/settings', [AdminController::class, 'updateSettings'])->name('admin.settings.update');
 
     Route::get('/logs', [AdminController::class, 'logs'])->name('admin.logs');
+
+    // Phase 2: Blog CMS + Support Tickets
+    Route::resource('posts', PostController::class)->names('admin.posts');
+
+    Route::get('/tickets', function () {
+        $tickets = \App\Models\SupportTicket::with('user', 'assignee')->latest()->paginate(20);
+        return view('admin.tickets', compact('tickets'));
+    })->name('admin.tickets');
+});
+
+// ----- Blog (public) -----
+Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
+Route::get('/blog/{post:slug}', [BlogController::class, 'show'])->name('blog.show');
+
+// ----- Support (all authenticated users) -----
+Route::middleware('auth')->prefix('support')->group(function () {
+    Route::get('/', [SupportController::class, 'index'])->name('support.index');
+    Route::get('/create', [SupportController::class, 'create'])->name('support.create');
+    Route::post('/', [SupportController::class, 'store'])->name('support.store');
+    Route::get('/{ticket}', [SupportController::class, 'show'])->name('support.show');
+    Route::post('/{ticket}/reply', [SupportController::class, 'reply'])->name('support.reply');
 });
 
 require __DIR__.'/auth.php';
